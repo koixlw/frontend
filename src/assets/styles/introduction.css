@@ -1,0 +1,221 @@
+/* Introduction page styles (centralized) */
+.introduction .hero {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.introduction .hero-bg-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    z-index: 0;
+}
+
+.introduction .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(44, 30, 28, 0.8));
+    z-index: 1;
+}
+
+.introduction .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: #fff;
+}
+
+.introduction .hero-title {
+    font-size: 80px;
+    font-weight: bold;
+    letter-spacing: 10px;
+    margin-bottom: 20px;
+    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.introduction .char-block {
+    display: inline-block;
+    opacity: 0;
+    animation: charsEnter 1s ease-out forwards;
+}
+
+@keyframes charsEnter {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.introduction .hero-subtitle {
+    font-size: 24px;
+    font-weight: 300;
+    opacity: 0.9;
+    letter-spacing: 2px;
+}
+
+.introduction .fade-in-up {
+    opacity: 0;
+    animation: fadeInUp 1s ease-out 1s forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.introduction .scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+}
+
+.introduction .scroll-indicator:hover {
+    opacity: 1;
+}
+
+.introduction .scroll-indicator .line {
+    width: 1px;
+    height: 60px;
+    background: #fff;
+    margin-bottom: 10px;
+    animation: scrollLine 2s infinite;
+    transform-origin: top;
+}
+
+@keyframes scrollLine {
+    0% {
+        transform: scaleY(0);
+        transform-origin: top;
+    }
+
+    50% {
+        transform: scaleY(1);
+        transform-origin: top;
+    }
+
+    51% {
+        transform: scaleY(1);
+        transform-origin: bottom;
+    }
+
+    100% {
+        transform: scaleY(0);
+        transform-origin: bottom;
+    }
+}
+
+.introduction .scroll-indicator .text {
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* craft section styles */
+.introduction .dark-bg {
+    background-color: #2c1e1c;
+    color: #fff;
+    overflow: hidden;
+}
+
+.introduction .bg-pattern {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.05;
+    background-image: radial-gradient(#d93b30 1px, transparent 1px);
+    background-size: 30px 30px;
+    pointer-events: none;
+}
+
+.introduction .section-desc {
+    max-width: 600px;
+    margin: 0 auto 60px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.introduction .text-center {
+    text-align: center;
+}
+
+.introduction .craft-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    margin-bottom: 60px;
+}
+
+.introduction .craft-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 30px 20px;
+    border-radius: 8px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.introduction .craft-card:hover {
+    background: rgba(217, 59, 48, 0.1);
+    transform: translateY(-5px);
+    border-color: #d93b30;
+}
+
+.introduction .card-icon {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.introduction .craft-card h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+.introduction .craft-card p {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.6;
+}
+
+.introduction .craft-spotlight {
+    text-align: center;
+}
+
+.introduction .spotlight-img {
+    max-width: 100%;
+    max-height: 400px;
+    filter: drop-shadow(0 0 50px rgba(0, 0, 0, 0.5));
+    mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+}

@@ -1,0 +1,47 @@
+:root {
+  /* 色彩系统 */
+  --color-primary: #b92c23;       /* 泥土红 */
+  --color-secondary: #7a6a56;     /* 暖土灰 */
+  --color-bg: #f7f3ea;            /* 宣纸米黄背景 */
+  --color-card: #fffaf2;          /* 卡片浅米 */
+  --color-border: #e1d7c6;        /* 边框浅棕 */
+  --color-text: #3a2f25;          /* 主文本深棕 */
+  --color-text-muted: #7a6a56;    /* 次文本 */
+  --color-success: #2f9d27;
+  --color-danger: #d93b30;
+
+  /* 间距与圆角 */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --radius-1: 6px;
+  --radius-2: 10px;
+  --radius-3: 16px;
+
+  /* 阴影 */
+  --shadow-1: 0 2px 8px rgba(0,0,0,.06);
+  --shadow-2: 0 6px 20px rgba(0,0,0,.08);
+
+  /* 字体 */
+  --font-sans: "Noto Sans SC", "Microsoft YaHei", "PingFang SC", system-ui, -apple-system, Arial, sans-serif;
+  --font-serif: "Noto Serif SC", "Songti SC", "SimSun", serif;
+
+  /* 动效（柔和） */
+  --motion-fast: 120ms;
+  --motion-medium: 180ms;
+  --motion-slow: 260ms;
+  --motion-ease: cubic-bezier(.2, .8, .2, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #1e1a16;
+    --color-card: #2a241f;
+    --color-text: #e9dfd3;
+    --color-text-muted: #b3a89b;
+    --color-border: #4a3f36;
+  }
+}

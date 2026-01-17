@@ -1,0 +1,136 @@
+/* 全局基础样式与通用组件 */
+@import './tokens.css';
+
+html, body, #app { height: 100%; }
+/* 宣纸米黄背景 + 轻柔纸纹理 */
+body {
+  margin: 0;
+  background-color: var(--color-bg);
+  /* 低对比度纸纹理：两层径向点阵偏移叠加 */
+  background-image:
+    radial-gradient(rgba(58, 47, 37, 0.035) 1px, transparent 1px),
+    radial-gradient(rgba(58, 47, 37, 0.025) 1px, transparent 1px);
+  background-position: 0 0, 18px 18px;
+  background-size: 36px 36px, 36px 36px;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+}
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-4); }
+
+/* 标题层级 */
+h1, h2, h3 { font-family: var(--font-serif); color: var(--color-text); margin: var(--space-4) 0 var(--space-3); }
+p { color: var(--color-text-muted); }
+
+/* 卡片与按钮 */
+.card {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2);
+  box-shadow: var(--shadow-1);
+  padding: var(--space-4);
+  transition: box-shadow var(--motion-medium) var(--motion-ease), transform var(--motion-medium) var(--motion-ease);
+}
+.card:hover { box-shadow: var(--shadow-2); transform: translateY(-2px); }
+
+/* 统一按钮为“立即预约”风格 */
+.btn, .btn-primary, .banner-btn {
+  display: inline-block;
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: var(--radius-1);
+  cursor: pointer;
+  box-shadow: var(--shadow-1);
+  text-decoration: none;
+  transition: filter var(--motion-medium) var(--motion-ease), transform var(--motion-fast) var(--motion-ease), box-shadow var(--motion-medium) var(--motion-ease);
+}
+.btn:hover, .btn-primary:hover, .banner-btn:hover { filter: brightness(1.05); transform: translateY(-1px); box-shadow: var(--shadow-2); }
+.btn:disabled { opacity: .6; cursor: not-allowed; }
+/* 将次级与链接样式也暂时统一到主按钮风格 */
+.btn.secondary, .btn.link { background: var(--color-primary); color: #fff; border: none; }
+/* 焦点可见：提升可访问性 */
+.btn:focus-visible, .banner-btn:focus-visible { outline: 2px solid rgba(185,44,35,0.35); outline-offset: 2px; }
+
+/* 输入控件 */
+.input, .select, textarea { width: 100%; padding: 10px; border: 1px solid var(--color-border); border-radius: var(--radius-1); font-size: 14px; background: #fff; }
+.label { display: block; font-weight: 600; color: var(--color-text); margin: 12px 0 6px; }
+
+/* 粘性导航基础类（组件内部可复用） */
+.sticky-header { position: sticky; top: 0; z-index: 1000; background: #fff; border-bottom: 1px solid var(--color-border); box-shadow: var(--shadow-1); }
+.nav-link { color: var(--color-text); text-decoration: none; padding: 8px 12px; border-radius: var(--radius-1); transition: background-color var(--motion-medium) var(--motion-ease), color var(--motion-medium) var(--motion-ease); }
+.nav-link:hover { background: rgba(0,0,0,.04); }
+.nav-link.active { color: var(--color-primary); }
+
+/* 英雄区 */
+.hero { background: linear-gradient(to bottom, rgba(185,44,35,.06), transparent), var(--color-bg); padding: var(--space-6) 0; }
+.hero-title { font-size: 32px; margin-bottom: var(--space-2); }
+.hero-subtitle { font-size: 16px; margin-bottom: var(--space-4); }
+.hero-actions { display: flex; gap: var(--space-3); flex-wrap: wrap; }
+
+/* 首页与通用区块副标题（引导式标题） */
+.section-subtitle {
+  color: var(--color-primary);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.6;
+  letter-spacing: .3px;
+  margin: 0 0 var(--space-2);
+  display: inline-flex;
+  align-items: center;
+}
+.section-subtitle::before {
+  content: '';
+  width: 22px; height: 2px;
+  border-radius: 2px;
+  background: var(--color-primary);
+  margin-right: 10px;
+}
+
+/* Banner CTA布局优化 */
+.banner-ctas { display: flex; gap: var(--space-3); flex-wrap: wrap; margin-top: var(--space-2); }
+.banner-btn { 
+  display: inline-block;
+  padding: 10px 18px;
+  border-radius: var(--radius-1);
+  background: var(--color-primary);
+  color: #fff;
+  text-decoration: none;
+  box-shadow: var(--shadow-1);
+}
+.banner-btn:hover { filter: brightness(1.05); }
+
+/* 响应式断点 */
+@media (max-width: 768px) {
+  .container { padding: 0 var(--space-3) }
+  .hero-title { font-size: 26px }
+  .section-subtitle { font-size: 16px; margin-bottom: var(--space-2); }
+  .banner-ctas { gap: var(--space-2); }
+}
+
+/* 滚动动画工具类 */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+
+/* 优化卡片悬停效果 */
+.card, .inheritor-card, .gallery-item, .news-item, .shop-item {
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
+}
+
+.card:hover, .inheritor-card:hover, .gallery-item:hover, .news-item:hover, .shop-item:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 12px 32px rgba(185, 44, 35, 0.15);
+}
