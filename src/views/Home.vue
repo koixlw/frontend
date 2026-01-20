@@ -94,7 +94,7 @@
           <div class="ai-card-text">
             <h3 class="ai-card-title">图生图：图片变泥娃娃</h3>
             <p class="ai-card-desc">上传一张自己的照片或喜欢的画作，让照片，穿越时光，化身成一个红彤彤、笑盈盈的泥彩娃娃</p>
-            <router-link to="/ai/style-fusion" class="section-link">风格融合</router-link>
+            <router-link to="/ai/image2image" class="section-link">风格融合</router-link>
           </div>
           <div class="ai-card-image">
             <img src="../assets/images/nirenhuadan.jpg" alt="图生图预览" class="ai-card-img">

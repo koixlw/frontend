@@ -33,7 +33,7 @@
                 <router-link to="/ai/text2image" class="dropdown-item">{{ $t('nav.text2image') }}</router-link>
               </li>
               <li>
-                <router-link to="/ai/style-fusion" class="dropdown-item">{{ $t('nav.styleFusion') }}</router-link>
+                <router-link to="/ai/image2image" class="dropdown-item">{{ $t('nav.styleFusion') }}</router-link>
               </li>
             </ul>
           </li>

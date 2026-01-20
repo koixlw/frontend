@@ -13,7 +13,7 @@ const Reserve = () => import('../views/Reserve.vue');
 const Shop = () => import('../views/shop.vue');
 const TextToImage = () => import('../views/TextToImage.vue');
 const Introduction = () => import('../views/introduction/Introduction.vue');
-const StyleFusion = () => import('../views/StyleFusion.vue');
+const ImageToImage = () => import('../views/ImageToImage.vue');
 const PrivacyPolicy = () => import('../views/PrivacyPolicy.vue');
 const TermsOfUse = () => import('../views/TermsOfUse.vue');
 
@@ -107,11 +107,11 @@ const routes = [
     }
   },
   {
-    path: '/ai/style-fusion',
-    name: 'StyleFusion',
-    component: StyleFusion,
+    path: '/ai/image2image',
+    name: 'ImageToImage',
+    component: ImageToImage,
     meta: {
-      title: 'AI 共创新坊 - 风格融合'
+      title: 'AI 图生图 - 风格融合'
     }
   },
   {

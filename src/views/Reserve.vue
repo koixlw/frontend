@@ -392,7 +392,7 @@ const availableTimeSlots = computed(() => {
     { id: 1, time: '09:00-10:30', available: true, status: '可预约' },
     { id: 2, time: '11:00-12:30', available: true, status: '可预约' },
     { id: 3, time: '13:30-15:00', available: true, status: '可预约' },
-    { id: 4, time: '15:30-17:00', available: false, status: '可预约' },
+    { id: 4, time: '15:30-17:00', available: false, status: '已约满' },
     { id: 5, time: '17:30-19:00', available: true, status: '可预约' }
   ];
 
