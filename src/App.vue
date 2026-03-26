@@ -7,6 +7,7 @@
     <Footer />
     <BackToTop />
     <BackgroundMusic />
+    <ToastNotification />
   </div>
 </template>
 
@@ -15,6 +16,7 @@ import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer.vue';
 import BackToTop from '@/components/BackToTop.vue';
 import BackgroundMusic from '@/components/BackgroundMusic.vue';
+import ToastNotification from '@/components/ToastNotification.vue';
 </script>
 
 <style scoped>

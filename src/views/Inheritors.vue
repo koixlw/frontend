@@ -165,7 +165,7 @@
                       :class="{ favorited: isFavorited(inheritor.id) }" :title="isFavorited(inheritor.id) ? '取消收藏' : '收藏'">
                       <span class="favorite-icon">♥</span>
                     </button>
-                    <button class="action-btn share-btn" @click.stop="shareInheritor(inheritor)" title="分享">
+                    <button class="action-btn share-btn" @click.stop="handleShare(inheritor)" title="分享">
                       <span class="share-icon">↗</span>
                     </button>
                   </div>
@@ -231,7 +231,7 @@
 <script setup>
 import { ref, computed, onMounted, watch } from 'vue';
 import { getInheritorsByPage } from '../api/inheritor';
-import { favoriteInheritor, unfavoriteInheritor, shareInheritor } from '../api/inheritor';
+import { useToast } from '../composables/useToast';
 
 // 导入图片资源
 import levelIcon from '@/image/等级.png'
@@ -265,6 +265,9 @@ const searchFocused = ref(false);
 
 // 收藏列表
 const favoriteList = ref([]);
+
+// Toast 提示
+const { success, error: showError, warning, info } = useToast();
 
 // 当前页显示的传承人
 const paginatedInheritors = computed(() => {
@@ -447,9 +450,29 @@ const onPageSizeChange = () => {
   loadInheritors();
 };
 
-// 排序处理
+// 排序处理 - 前端排序，不重新请求
 const handleSort = () => {
-  loadInheritors();
+  if (!allInheritors.value.length) return;
+
+  const [field, order] = sortBy.value.split('-');
+
+  allInheritors.value.sort((a, b) => {
+    let valueA, valueB;
+
+    if (field === 'year') {
+      valueA = a.year || 0;
+      valueB = b.year || 0;
+    } else if (field === 'name') {
+      valueA = a.name || '';
+      valueB = b.name || '';
+    }
+
+    if (order === 'asc') {
+      return valueA > valueB ? 1 : -1;
+    } else {
+      return valueA < valueB ? 1 : -1;
+    }
+  });
 };
 
 // 收藏功能
@@ -457,25 +480,23 @@ const isFavorited = (inheritorId) => {
   return favoriteList.value.includes(inheritorId);
 };
 
-const toggleFavorite = async (inheritor) => {
+const toggleFavorite = (inheritor) => {
   try {
     if (isFavorited(inheritor.id)) {
-      await unfavoriteInheritor(inheritor.id);
       favoriteList.value = favoriteList.value.filter(id => id !== inheritor.id);
-      alert(`已取消收藏${inheritor.name}`);
+      success(`已取消收藏 ${inheritor.name}`);
     } else {
-      await favoriteInheritor(inheritor.id);
       favoriteList.value.push(inheritor.id);
-      alert(`已收藏${inheritor.name}`);
+      success(`已收藏 ${inheritor.name}`);
     }
-  } catch (error) {
-    console.error('收藏操作失败:', error);
-    alert('操作失败,请稍后重试');
+  } catch (err) {
+    console.error('收藏操作失败:', err);
+    showError('操作失败，请稍后重试');
   }
 };
 
 // 分享功能
-const shareInheritor = async (inheritor) => {
+const handleShare = async (inheritor) => {
   const url = `${window.location.origin}/inheritor/${inheritor.id}`;
   const title = `${inheritor.name} - ${inheritor.title}`;
 
@@ -487,17 +508,23 @@ const shareInheritor = async (inheritor) => {
         text: inheritor.description,
         url: url
       });
+      info('分享成功！');
       return;
     } catch (err) {
-      console.log('原生分享取消,使用备用方案');
+      if (err.name !== 'AbortError') {
+        console.log('原生分享取消，使用备用方案');
+      } else {
+        return; // 用户取消分享
+      }
     }
   }
 
   // 备用方案:复制链接到剪贴板
   try {
     await navigator.clipboard.writeText(url);
-    alert('链接已复制到剪贴板,快去分享吧!');
+    success('链接已复制到剪贴板，快去分享吧！');
   } catch (err) {
+    console.error('复制失败:', err);
     // 最终备用方案:手动复制
     prompt('请复制以下链接分享:', url);
   }
@@ -505,15 +532,28 @@ const shareInheritor = async (inheritor) => {
 
 // 从本地存储加载收藏列表
 const loadFavoriteList = () => {
-  const saved = localStorage.getItem('favoriteInheritors');
-  if (saved) {
-    favoriteList.value = JSON.parse(saved);
+  try {
+    const saved = localStorage.getItem('favoriteInheritors');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed)) {
+        favoriteList.value = parsed;
+      }
+    }
+  } catch (err) {
+    console.error('加载收藏列表失败:', err);
+    favoriteList.value = []; // 失败时使用空数组
   }
 };
 
 // 保存收藏列表到本地存储
 const saveFavoriteList = () => {
-  localStorage.setItem('favoriteInheritors', JSON.stringify(favoriteList.value));
+  try {
+    localStorage.setItem('favoriteInheritors', JSON.stringify(favoriteList.value));
+  } catch (err) {
+    console.error('保存收藏列表失败:', err);
+    showError('收藏保存失败，请检查浏览器存储权限');
+  }
 };
 
 // 监听收藏列表变化并保存

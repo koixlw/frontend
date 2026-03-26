@@ -304,7 +304,7 @@
 				</section>
 
 				<!-- 代表作品展示 -->
-				<section class="section-card works-section" v-if="detail.works && detail.works.length > 0">
+				<section class="section-card works-section" v-if="detail?.works?.length > 0">
 					<div class="section-header">
 						<div class="section-title-wrapper">
 							<div class="title-decoration"></div>
@@ -336,7 +336,7 @@
 				</section>
 
 				<!-- 视频展示 -->
-				<section class="section-card videos-section" v-if="detail.videos && detail.videos.length > 0">
+				<section class="section-card videos-section" v-if="detail?.videos?.length > 0">
 					<div class="section-header">
 						<div class="section-title-wrapper">
 							<div class="title-decoration"></div>
@@ -370,7 +370,7 @@
 				</section>
 
 				<!-- 技艺流程 -->
-				<section class="section-card process-section">
+				<section class="section-card process-section" v-if="craftProcess && craftProcess.length > 0">
 					<div class="section-header">
 						<div class="section-title-wrapper">
 							<div class="title-decoration"></div>
@@ -385,12 +385,12 @@
 					</div>
 					<div class="section-content">
 						<div class="process-timeline">
-							<div class="process-step" v-for="(step, index) in craftProcess" :key="step.step">
-								<div class="step-number">{{ step.step }}</div>
+							<div class="process-step" v-for="(step, index) in craftProcess" :key="step.step || index">
+								<div class="step-number">{{ step.step || index + 1 }}</div>
 								<div class="step-content">
 									<h3 class="step-title">{{ step.title }}</h3>
 									<p class="step-description">{{ step.description }}</p>
-									<span class="step-duration">⏱ 预计耗时: {{ step.duration }}</span>
+									<span class="step-duration" v-if="step.duration">⏱ 预计耗时: {{ step.duration }}</span>
 								</div>
 							</div>
 						</div>
@@ -535,7 +535,6 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getInheritorDetailById } from '../api/inheritor'
-import { mockCraftProcess } from '../api/inheritorMockData'
 
 // 导入本地图片资源
 import badgeIcon from '@/image/徽章.png'
@@ -550,8 +549,14 @@ const loading = ref(false)
 const error = ref(null)
 const showBackToTop = ref(false)
 
-// 技艺流程数据
-const craftProcess = ref(mockCraftProcess)
+// 技艺流程数据 - 从详情数据中获取，如果没有则使用默认演示数据
+const craftProcess = computed(() => {
+  if (detail.value?.craftProcess && detail.value.craftProcess.length > 0) {
+    return detail.value.craftProcess
+  }
+  // 如果 API 未返回数据，返回空数组（不显示）
+  return []
+})
 
 // 是否有统计信息
 const hasStats = computed(() => {
