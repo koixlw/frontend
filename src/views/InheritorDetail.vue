@@ -303,6 +303,100 @@
 					</div>
 				</section>
 
+				<!-- 代表作品展示 -->
+				<section class="section-card works-section" v-if="detail.works && detail.works.length > 0">
+					<div class="section-header">
+						<div class="section-title-wrapper">
+							<div class="title-decoration"></div>
+							<h2 class="section-title">
+								<span class="title-char">代</span>
+								<span class="title-char">表</span>
+								<span class="title-char">作</span>
+								<span class="title-char">品</span>
+							</h2>
+							<div class="title-decoration"></div>
+						</div>
+					</div>
+					<div class="section-content">
+						<div class="works-gallery">
+							<div class="work-item" v-for="work in detail.works" :key="work.id">
+								<div class="work-image-wrapper">
+									<img :src="work.imageUrl" :alt="work.name" class="work-image" loading="lazy">
+									<div class="work-overlay">
+										<div class="work-info">
+											<h4 class="work-name">{{ work.name }}</h4>
+											<p class="work-desc">{{ work.description }}</p>
+											<span class="work-year">{{ work.year }}年</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<!-- 视频展示 -->
+				<section class="section-card videos-section" v-if="detail.videos && detail.videos.length > 0">
+					<div class="section-header">
+						<div class="section-title-wrapper">
+							<div class="title-decoration"></div>
+							<h2 class="section-title">
+								<span class="title-char">技</span>
+								<span class="title-char">艺</span>
+								<span class="title-char">视</span>
+								<span class="title-char">频</span>
+							</h2>
+							<div class="title-decoration"></div>
+						</div>
+					</div>
+					<div class="section-content">
+						<div class="videos-grid">
+							<div class="video-item" v-for="video in detail.videos" :key="video.id">
+								<div class="video-thumbnail">
+									<img :src="video.cover" :alt="video.title" class="video-cover" loading="lazy">
+									<div class="play-button">▶</div>
+									<div class="video-duration">{{ video.duration }}</div>
+								</div>
+								<div class="video-info">
+									<h4 class="video-title">{{ video.title }}</h4>
+									<p class="video-desc">{{ video.description }}</p>
+									<div class="video-meta">
+										<span class="video-views">👁 {{ video.views.toLocaleString() }}</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<!-- 技艺流程 -->
+				<section class="section-card process-section">
+					<div class="section-header">
+						<div class="section-title-wrapper">
+							<div class="title-decoration"></div>
+							<h2 class="section-title">
+								<span class="title-char">技</span>
+								<span class="title-char">艺</span>
+								<span class="title-char">流</span>
+								<span class="title-char">程</span>
+							</h2>
+							<div class="title-decoration"></div>
+						</div>
+					</div>
+					<div class="section-content">
+						<div class="process-timeline">
+							<div class="process-step" v-for="(step, index) in craftProcess" :key="step.step">
+								<div class="step-number">{{ step.step }}</div>
+								<div class="step-content">
+									<h3 class="step-title">{{ step.title }}</h3>
+									<p class="step-description">{{ step.description }}</p>
+									<span class="step-duration">⏱ 预计耗时: {{ step.duration }}</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+
 				<!-- 创新贡献 -->
 				<section class="section-card" v-if="detail.innovationContributions">
 					<div class="section-header">
@@ -441,6 +535,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getInheritorDetailById } from '../api/inheritor'
+import { mockCraftProcess } from '../api/inheritorMockData'
 
 // 导入本地图片资源
 import badgeIcon from '@/image/徽章.png'
@@ -454,6 +549,9 @@ const detail = ref(null)
 const loading = ref(false)
 const error = ref(null)
 const showBackToTop = ref(false)
+
+// 技艺流程数据
+const craftProcess = ref(mockCraftProcess)
 
 // 是否有统计信息
 const hasStats = computed(() => {
@@ -1572,6 +1670,332 @@ const scrollToTop = () => {
 
 	.philosophy-text {
 		font-size: 17px;
+	}
+}
+
+/* 作品展示样式 */
+.works-section {
+	background: linear-gradient(135deg, #fff 0%, #faf9f6 100%);
+}
+
+.works-gallery {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+	gap: 25px;
+}
+
+.work-item {
+	position: relative;
+	border-radius: 16px;
+	overflow: hidden;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+	transition: all 0.4s ease;
+}
+
+.work-item:hover {
+	transform: translateY(-8px);
+	box-shadow: 0 8px 25px rgba(200, 16, 46, 0.2);
+}
+
+.work-image-wrapper {
+	position: relative;
+	aspect-ratio: 4/3;
+	overflow: hidden;
+}
+
+.work-image {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform 0.6s ease;
+}
+
+.work-item:hover .work-image {
+	transform: scale(1.1);
+}
+
+.work-overlay {
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(to top,
+		rgba(0, 0, 0, 0.9) 0%,
+		rgba(0, 0, 0, 0.3) 50%,
+		transparent 100%);
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	padding: 20px;
+	opacity: 0;
+	transition: opacity 0.4s ease;
+}
+
+.work-item:hover .work-overlay {
+	opacity: 1;
+}
+
+.work-info {
+	color: white;
+}
+
+.work-name {
+	font-size: 18px;
+	font-weight: 700;
+	margin-bottom: 8px;
+	color: white;
+}
+
+.work-desc {
+	font-size: 14px;
+	line-height: 1.6;
+	margin-bottom: 8px;
+	opacity: 0.9;
+}
+
+.work-year {
+	display: inline-block;
+	padding: 4px 12px;
+	background: var(--primary-red);
+	border-radius: 20px;
+	font-size: 12px;
+	font-weight: 600;
+}
+
+/* 视频展示样式 */
+.videos-section {
+	background: linear-gradient(135deg, #fff 0%, #faf9f6 100%);
+}
+
+.videos-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+	gap: 25px;
+}
+
+.video-item {
+	background: white;
+	border-radius: 16px;
+	overflow: hidden;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+	transition: all 0.4s ease;
+}
+
+.video-item:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 8px 25px rgba(200, 16, 46, 0.2);
+}
+
+.video-thumbnail {
+	position: relative;
+	aspect-ratio: 16/9;
+	overflow: hidden;
+	background: #000;
+}
+
+.video-cover {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	opacity: 0.9;
+	transition: opacity 0.3s ease;
+}
+
+.video-item:hover .video-cover {
+	opacity: 1;
+}
+
+.play-button {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 60px;
+	height: 60px;
+	background: rgba(200, 16, 46, 0.9);
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	font-size: 24px;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.video-item:hover .play-button {
+	transform: translate(-50%, -50%) scale(1.1);
+	background: var(--primary-red);
+}
+
+.video-duration {
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+	padding: 4px 10px;
+	background: rgba(0, 0, 0, 0.8);
+	color: white;
+	border-radius: 4px;
+	font-size: 12px;
+	font-weight: 600;
+}
+
+.video-info {
+	padding: 20px;
+}
+
+.video-title {
+	font-size: 16px;
+	font-weight: 700;
+	color: var(--ink-black);
+	margin-bottom: 8px;
+}
+
+.video-desc {
+	font-size: 14px;
+	color: #666;
+	line-height: 1.6;
+	margin-bottom: 12px;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+.video-meta {
+	display: flex;
+	align-items: center;
+	gap: 15px;
+	font-size: 13px;
+	color: #888;
+}
+
+.video-views {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+}
+
+/* 技艺流程样式 */
+.process-section {
+	background: linear-gradient(135deg, #faf9f6 0%, white 100%);
+}
+
+.process-timeline {
+	position: relative;
+	padding: 20px 0;
+}
+
+.process-step {
+	display: flex;
+	gap: 30px;
+	margin-bottom: 40px;
+	position: relative;
+}
+
+.process-step:last-child {
+	margin-bottom: 0;
+}
+
+.process-step:not(:last-child)::after {
+	content: '';
+	position: absolute;
+	left: 24px;
+	top: 50px;
+	bottom: -30px;
+	width: 2px;
+	background: linear-gradient(to bottom,
+		var(--gold) 0%,
+		var(--primary-red) 100%);
+}
+
+.step-number {
+	flex-shrink: 0;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	background: linear-gradient(135deg, var(--primary-red), #e63946);
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 24px;
+	font-weight: 900;
+	box-shadow: 0 4px 15px rgba(200, 16, 46, 0.3);
+	position: relative;
+	z-index: 1;
+}
+
+.step-content {
+	flex: 1;
+	background: white;
+	padding: 25px;
+	border-radius: 16px;
+	border: 2px solid rgba(200, 16, 46, 0.1);
+	transition: all 0.3s ease;
+}
+
+.process-step:hover .step-content {
+	border-color: var(--gold);
+	box-shadow: 0 4px 20px rgba(212, 175, 55, 0.2);
+	transform: translateX(5px);
+}
+
+.step-title {
+	font-size: 20px;
+	font-weight: 700;
+	color: var(--primary-red);
+	margin-bottom: 12px;
+}
+
+.step-description {
+	font-size: 15px;
+	color: #555;
+	line-height: 1.8;
+	margin-bottom: 12px;
+}
+
+.step-duration {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 6px 14px;
+	background: linear-gradient(135deg,
+		rgba(200, 16, 46, 0.08),
+		rgba(212, 175, 55, 0.08));
+	border-radius: 20px;
+	font-size: 13px;
+	color: var(--primary-red);
+	font-weight: 600;
+}
+
+/* 响应式优化 */
+@media (max-width: 768px) {
+	.works-gallery {
+		grid-template-columns: 1fr;
+	}
+
+	.videos-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.process-step {
+		flex-direction: column;
+		gap: 15px;
+	}
+
+	.process-step:not(:last-child)::after {
+		left: 25px;
+		top: 50px;
+		bottom: -20px;
+	}
+
+	.step-number {
+		width: 50px;
+		height: 50px;
+	}
+
+	.step-content {
+		width: 100%;
 	}
 }
 </style>

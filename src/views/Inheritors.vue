@@ -77,6 +77,21 @@
                 <div class="input-underline"></div>
               </div>
             </div>
+            <div class="filter-group">
+              <label class="filter-label">
+                <img :src="dateIcon" alt="排序" class="label-icon-img">
+                排序方式
+              </label>
+              <div class="select-wrapper">
+                <select v-model="sortBy" class="filter-select" @change="handleSort">
+                  <option value="year-desc">年份 ↓</option>
+                  <option value="year-asc">年份 ↑</option>
+                  <option value="name-asc">姓名 A-Z</option>
+                  <option value="name-desc">姓名 Z-A</option>
+                </select>
+                <div class="select-arrow"></div>
+              </div>
+            </div>
           </div>
           <div class="filter-decoration-bottom"></div>
         </div>
@@ -139,11 +154,22 @@
               </div>
               <p class="inheritor-desc">{{ inheritor.description }}</p>
               <div class="card-footer">
-                <router-link :to="`/inheritor/${inheritor.id}`" class="view-detail-btn">
-                  <span class="btn-text">点击查看详情</span>
-                  <span class="btn-arrow">→</span>
-                  <div class="btn-ripple"></div>
-                </router-link>
+                <div class="footer-actions">
+                  <router-link :to="`/inheritor/${inheritor.id}`" class="view-detail-btn">
+                    <span class="btn-text">查看详情</span>
+                    <span class="btn-arrow">→</span>
+                    <div class="btn-ripple"></div>
+                  </router-link>
+                  <div class="action-buttons">
+                    <button class="action-btn favorite-btn" @click.stop="toggleFavorite(inheritor)"
+                      :class="{ favorited: isFavorited(inheritor.id) }" :title="isFavorited(inheritor.id) ? '取消收藏' : '收藏'">
+                      <span class="favorite-icon">♥</span>
+                    </button>
+                    <button class="action-btn share-btn" @click.stop="shareInheritor(inheritor)" title="分享">
+                      <span class="share-icon">↗</span>
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="card-corner card-corner-tl"></div>
@@ -205,6 +231,7 @@
 <script setup>
 import { ref, computed, onMounted, watch } from 'vue';
 import { getInheritorsByPage } from '../api/inheritor';
+import { favoriteInheritor, unfavoriteInheritor, shareInheritor } from '../api/inheritor';
 
 // 导入图片资源
 import levelIcon from '@/image/等级.png'
@@ -223,6 +250,7 @@ import zhangImg from '@/assets/images/czhangmingshan.jpg'
 const selectedLevel = ref('all');
 const selectedRegion = ref('all');
 const searchKeyword = ref('');
+const sortBy = ref('year-desc');
 
 // 分页相关
 const currentPage = ref(1);
@@ -234,6 +262,9 @@ const totalPages = ref(0);
 const totalRecords = ref(0);
 const loading = ref(false);
 const searchFocused = ref(false);
+
+// 收藏列表
+const favoriteList = ref([]);
 
 // 当前页显示的传承人
 const paginatedInheritors = computed(() => {
@@ -416,6 +447,80 @@ const onPageSizeChange = () => {
   loadInheritors();
 };
 
+// 排序处理
+const handleSort = () => {
+  loadInheritors();
+};
+
+// 收藏功能
+const isFavorited = (inheritorId) => {
+  return favoriteList.value.includes(inheritorId);
+};
+
+const toggleFavorite = async (inheritor) => {
+  try {
+    if (isFavorited(inheritor.id)) {
+      await unfavoriteInheritor(inheritor.id);
+      favoriteList.value = favoriteList.value.filter(id => id !== inheritor.id);
+      alert(`已取消收藏${inheritor.name}`);
+    } else {
+      await favoriteInheritor(inheritor.id);
+      favoriteList.value.push(inheritor.id);
+      alert(`已收藏${inheritor.name}`);
+    }
+  } catch (error) {
+    console.error('收藏操作失败:', error);
+    alert('操作失败,请稍后重试');
+  }
+};
+
+// 分享功能
+const shareInheritor = async (inheritor) => {
+  const url = `${window.location.origin}/inheritor/${inheritor.id}`;
+  const title = `${inheritor.name} - ${inheritor.title}`;
+
+  // 尝试使用原生分享API
+  if (navigator.share) {
+    try {
+      await navigator.share({
+        title: title,
+        text: inheritor.description,
+        url: url
+      });
+      return;
+    } catch (err) {
+      console.log('原生分享取消,使用备用方案');
+    }
+  }
+
+  // 备用方案:复制链接到剪贴板
+  try {
+    await navigator.clipboard.writeText(url);
+    alert('链接已复制到剪贴板,快去分享吧!');
+  } catch (err) {
+    // 最终备用方案:手动复制
+    prompt('请复制以下链接分享:', url);
+  }
+};
+
+// 从本地存储加载收藏列表
+const loadFavoriteList = () => {
+  const saved = localStorage.getItem('favoriteInheritors');
+  if (saved) {
+    favoriteList.value = JSON.parse(saved);
+  }
+};
+
+// 保存收藏列表到本地存储
+const saveFavoriteList = () => {
+  localStorage.setItem('favoriteInheritors', JSON.stringify(favoriteList.value));
+};
+
+// 监听收藏列表变化并保存
+watch(favoriteList, () => {
+  saveFavoriteList();
+}, { deep: true });
+
 // 监听页码变化
 watch(currentPage, () => {
   loadInheritors();
@@ -423,6 +528,7 @@ watch(currentPage, () => {
 
 // 组件挂载后初始化
 onMounted(() => {
+  loadFavoriteList();
   loadInheritors();
 });
 </script>
@@ -1331,6 +1437,53 @@ section {
   text-align: center;
   padding-top: 10px;
   border-top: 1px solid #f0f0f0;
+}
+
+.footer-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.action-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid #e0e0e0;
+  background: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  font-size: 18px;
+}
+
+.action-btn:hover {
+  border-color: var(--primary-red);
+  color: var(--primary-red);
+  transform: scale(1.1);
+}
+
+.favorite-btn.favorited {
+  border-color: var(--primary-red);
+  background: var(--primary-red);
+  color: white;
+}
+
+.favorite-btn.favorited .favorite-icon {
+  animation: heartbeat 0.6s ease;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
 }
 
 /* uiverse.io 风格按钮 */
