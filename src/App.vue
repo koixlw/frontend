@@ -12,11 +12,11 @@
 </template>
 
 <script setup>
-import Header from '@/components/Header.vue';
-import Footer from '@/components/Footer.vue';
-import BackToTop from '@/components/BackToTop.vue';
-import BackgroundMusic from '@/components/BackgroundMusic.vue';
-import ToastNotification from '@/components/ToastNotification.vue';
+import Header from '@/components/layout/Header.vue';
+import Footer from '@/components/layout/Footer.vue';
+import BackToTop from '@/components/ui/BackToTop.vue';
+import BackgroundMusic from '@/components/layout/BackgroundMusic.vue';
+import ToastNotification from '@/components/ui/ToastNotification.vue';
 </script>
 
 <style scoped>

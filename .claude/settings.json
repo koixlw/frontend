@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -E \"\\\\.vue$\")",
+      "Bash(mv admin/*.vue admin/modules/)",
+      "Bash(ls *.vue)",
+      "Bash(grep -E \"\\\\.\\(md|js\\)$\")"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\23796\\Desktop\\frontend\\src\\assets\\css"
+    ]
+  }
+}

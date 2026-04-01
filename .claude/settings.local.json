@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -r views/introduction/Introduction /c/Users/23796/Desktop/frontend/src --include=*.vue --include=*.js)",
+      "Bash(grep -r @/views/Home /c/Users/23796/Desktop/frontend/src --include=*.vue --include=*.js)",
+      "Bash(grep -r @/views/shop.vue /c/Users/23796/Desktop/frontend/src --include=*.vue --include=*.js)",
+      "Bash(grep -r \"from ''@/api/reserve''\" /c/Users/23796/Desktop/frontend/src --include=\"*.vue\")",
+      "Bash(ls -1 /c/Users/23796/Desktop/frontend/*.md)"
+    ]
+  }
+}

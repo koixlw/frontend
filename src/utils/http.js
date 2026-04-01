@@ -1,47 +1,65 @@
-import axios from 'axios'
+import axios from 'axios';
 
-// 创建axios实例
+// 创建 axios 实例
 const http = axios.create({
-  baseURL: '/api',
-  timeout: 10000,
+  baseURL: '/api', // API 基础路径
+  timeout: 10000, // 请求超时时间
   headers: {
     'Content-Type': 'application/json'
   }
-})
+});
 
 // 请求拦截器
 http.interceptors.request.use(
-  config => {
-    console.log('发送请求:', config)
-    return config
+  (config) => {
+    // 从 localStorage 获取 token
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
   },
-  error => {
-    console.error('请求错误:', error)
-    return Promise.reject(error)
+  (error) => {
+    return Promise.reject(error);
   }
-)
+);
 
 // 响应拦截器
 http.interceptors.response.use(
-  response => {
-    console.log('收到响应:', response)
-    return response.data
+  (response) => {
+    return response.data;
   },
-  error => {
-    console.error('响应错误:', error)
+  (error) => {
+    // 统一错误处理
     if (error.response) {
-      // 服务器返回了错误状态码
-      console.error('错误状态:', error.response.status)
-      console.error('错误信息:', error.response.data)
-    } else if (error.request) {
-      // 请求已发出但没有收到响应
-      console.error('网络错误:', error.request)
-    } else {
-      // 其他错误
-      console.error('请求配置错误:', error.message)
-    }
-    return Promise.reject(error)
-  }
-)
+      const { status, data } = error.response;
 
-export default http
+      switch (status) {
+        case 401:
+          // 未授权，清除 token 并跳转到登录页
+          localStorage.removeItem('token');
+          window.location.href = '/login';
+          break;
+        case 403:
+          console.error('没有权限访问');
+          break;
+        case 404:
+          console.error('请求的资源不存在');
+          break;
+        case 500:
+          console.error('服务器错误');
+          break;
+        default:
+          console.error(data?.message || '请求失败');
+      }
+    } else if (error.request) {
+      console.error('网络错误，请检查网络连接');
+    } else {
+      console.error('请求配置错误');
+    }
+
+    return Promise.reject(error);
+  }
+);
+
+export default http;

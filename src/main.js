@@ -4,8 +4,8 @@ import App from './App.vue';
 import router from './router';
 import i18n from './locales';
 import './assets/styles/base.css';
-import './assets/css/animations.css'; // 导入动画样式
-import './assets/css/design-system.css'; // 导入设计系统 - 博物馆级视觉设计
+import './assets/styles/animations.css'; // 导入动画样式
+import './assets/styles/design-system.css'; // 导入设计系统 - 博物馆级视觉设计
 
 console.log('main.js is loading...');
 console.log('Vue app created');
