@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import Model3DPainter from '@/components/3d/Model3DPainter.vue'
+import Model3DPainter from '@/components/Model3DPainter.vue'
 
 export default {
   name: 'Model3DPainterPage',
