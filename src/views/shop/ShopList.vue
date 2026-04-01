@@ -204,7 +204,7 @@
                 </button>
               </div>
             </div>
-            <button class="cart-item-remove" @click="confirmRemove(item.id, item.title)">
+            <button class="cart-item-remove" @click="confirmRemove(item.id, item.title)" title="删除商品">
               <i class="icon-trash"></i>
             </button>
           </div>
@@ -1653,6 +1653,7 @@ section {
   padding: 15px;
   background-color: #f9f9f9;
   border-radius: 8px;
+  position: relative;
 }
 
 .cart-item-img {
@@ -1715,16 +1716,29 @@ section {
 }
 
 .cart-item-remove {
-  background: none;
-  border: none;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid #ddd;
   color: #999;
   cursor: pointer;
-  padding: 5px;
-  transition: color 0.3s ease;
+  padding: 6px 10px;
+  transition: all 0.3s ease;
+  border-radius: 4px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
 }
 
 .cart-item-remove:hover {
+  background-color: #fee;
+  border-color: #d93b30;
   color: #d93b30;
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(217, 59, 48, 0.2);
 }
 
 /* 购物车底部 */
