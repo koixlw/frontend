@@ -5,6 +5,8 @@ import http from '@/utils/http';
  * 包含传承人、新闻、作品展示
  */
 
+// 需要先声明http，否则下面的导出会找不到
+
 // ==================== 传承人相关 ====================
 export const inheritorApi = {
   // 获取所有传承人列表
@@ -204,7 +206,24 @@ export const galleryApi = {
   }
 };
 
+// 导出单独的函数供管理页面使用
+export const getInheritors = inheritorApi.getAllInheritors;
+export const createInheritor = (data) => http.post('/admin/inheritors', data);
+export const updateInheritor = (id, data) => http.put(`/admin/inheritors/${id}`, data);
+export const deleteInheritor = (id) => http.delete(`/admin/inheritors/${id}`);
+
+export const getAllNews = newsApi.getAllNews;
+export const createNews = (data) => http.post('/admin/news', data);
+export const updateNews = (id, data) => http.put(`/admin/news/${id}`, data);
+export const deleteNews = (id) => http.delete(`/admin/news/${id}`);
+
+export const getGalleryWorks = (params) => http.get('/admin/gallery', { params });
+export const createGalleryWork = (data) => http.post('/admin/gallery', data);
+export const updateGalleryWork = (id, data) => http.put(`/admin/gallery/${id}`, data);
+export const deleteGalleryWork = (id) => http.delete(`/admin/gallery/${id}`);
+
 export default {
+  contentApi,
   inheritorApi,
   newsApi,
   galleryApi

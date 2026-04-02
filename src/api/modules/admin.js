@@ -227,6 +227,16 @@ export const adminApi = {
   deleteActivityType: adminActivityApi.deleteActivityType
 };
 
+// 导出单独的函数供管理页面使用
+export const getUsers = adminUserApi.getUsersList;
+export const createUser = () => http.post('/admin/users');
+export const updateUser = adminUserApi.updateUserStatus;
+export const deleteUser = adminUserApi.deleteUser;
+
+export const getReservations = adminReserveApi.getReservationsList;
+export const updateReservation = adminReserveApi.confirmReservation;
+export const deleteReservation = adminReserveApi.cancelReservation;
+
 export default {
   adminUserApi,
   adminProductApi,

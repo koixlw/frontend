@@ -33,7 +33,7 @@ export default [
     }
   },
   {
-    path: '/payment',
+    path: '/shop/payment',
     name: 'Payment',
     component: Payment,
     meta: {

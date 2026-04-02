@@ -9,7 +9,10 @@ export default {
     text2image: 'Text to Image: Describe your imagination',
     styleFusion: 'Image to Image: Transform your photos',
     shop: 'Shop',
-    reserve: 'Reserve'
+    reserve: 'Reserve',
+    model3d: '3D Experience',
+    model3dShow: '3D Model Showcase',
+    model3dPainter: '3D Model Painter'
   },
   logo: {
     title: 'Nicairen',

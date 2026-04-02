@@ -27,6 +27,7 @@ export default [
   {
     path: '/admin',
     component: AdminLayout,
+    redirect: '/admin/dashboard',
     meta: {
       requiresAuth: true
     },

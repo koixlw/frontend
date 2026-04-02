@@ -5,11 +5,14 @@ export default {
     inheritors: '传承人',
     gallery: '作品展示',
     news: '新闻动态',
-    aiInteractive: 'AI互动',
+    aiInteractive: 'AI 互动',
     text2image: '文生图：说一句话，把想象捏成泥彩人',
     styleFusion: '图生图：上传一张照，让回忆泥彩人化',
     shop: '商城',
-    reserve: '预约体验'
+    reserve: '预约体验',
+    model3d: '3D 体验',
+    model3dShow: '3D 模型展示',
+    model3dPainter: '3D 模型上色'
   },
   logo: {
     title: '泥彩人',

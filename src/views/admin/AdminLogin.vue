@@ -40,7 +40,7 @@
 <script>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { adminLogin } from '../../api/admin';
+import { authApi } from '@/api/modules';
 
 export default {
   name: 'AdminLogin',
@@ -58,7 +58,7 @@ export default {
         loading.value = true;
         errorMessage.value = '';
         
-        const response = await adminLogin(loginForm.value);
+        const response = await authApi.adminLogin(loginForm.value);
         
         // 保存token
         localStorage.setItem('admin_token', response.token);

@@ -37,6 +37,17 @@
               </li>
             </ul>
           </li>
+          <li class="nav-item dropdown-container">
+            <span class="nav-link dropdown-trigger" :class="{ active: isActive('/model3d') }">{{ $t('nav.model3d') }}</span>
+            <ul class="dropdown-menu">
+              <li>
+                <router-link to="/model3d" class="dropdown-item">{{ $t('nav.model3dShow') }}</router-link>
+              </li>
+              <li>
+                <router-link to="/painter" class="dropdown-item">{{ $t('nav.model3dPainter') }}</router-link>
+              </li>
+            </ul>
+          </li>
           <li class="nav-item">
             <router-link to="/shop" class="nav-link" :class="{ active: isActive('/shop') }">{{ $t('nav.shop') }}</router-link>
           </li>

@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import Model3DViewer from '@/components/3d/Model3DViewer.vue'
+import Model3DViewer from '@/components/Model3DViewer.vue'
 
 export default {
   name: 'Model3DDemo',

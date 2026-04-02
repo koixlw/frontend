@@ -66,7 +66,14 @@ export const orderApi = {
   }
 };
 
+// 导出单独的函数供管理页面使用
+export const getProducts = productApi.getProducts;
+export const createProduct = (data) => http.post('/admin/products', data);
+export const updateProduct = (id, data) => http.put(`/admin/products/${id}`, data);
+export const deleteProduct = (id) => http.delete(`/admin/products/${id}`);
+
 export default {
+  shopApi,
   productApi,
   orderApi
 };

@@ -55,10 +55,32 @@ export const activityApi = {
   // 根据代码获取活动类型
   getActivityTypeByCode: (code) => {
     return http.get(`/activities/types/${code}`);
+  },
+
+  // 管理功能：创建活动类型
+  createActivityType: (data) => {
+    return http.post('/admin/activities/types', data);
+  },
+
+  // 管理功能：更新活动类型
+  updateActivityType: (id, data) => {
+    return http.put(`/admin/activities/types/${id}`, data);
+  },
+
+  // 管理功能：删除活动类型
+  deleteActivityType: (id) => {
+    return http.delete(`/admin/activities/types/${id}`);
   }
 };
 
+// 导出单独的函数供管理页面使用
+export const getActivityTypes = activityApi.getActivityTypes;
+export const createActivityType = activityApi.createActivityType;
+export const updateActivityType = activityApi.updateActivityType;
+export const deleteActivityType = activityApi.deleteActivityType;
+
 export default {
+  userApi,
   reserveApi,
   activityApi
 };

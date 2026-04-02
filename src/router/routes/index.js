@@ -21,9 +21,10 @@ export default [
   ...demoRoutes,
   ...legalRoutes,
   ...adminRoutes,
-  // 404页面
+  // 404页面 - 必须放在最后
   {
     path: '/:pathMatch(.*)*',
+    name: 'NotFound',
     redirect: '/',
     meta: {
       title: '页面不存在 - 泥彩人非遗文化传承'
