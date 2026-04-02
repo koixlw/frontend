@@ -187,7 +187,143 @@ const newsCategories = ref([
   { value: 'innovation', label: '创新发展' }
 ]);
 
-// 从API加载新闻数据
+// 备用新闻数据
+const fallbackNews = [
+  {
+    id: 1,
+    title: '泥彩人非遗文化展示活动在四川大学锦江学院成功举办',
+    excerpt: '本次活动展示了泥彩人制作技艺的精湛工艺，吸引了众多师生驻足观赏，现场气氛热烈。',
+    imageUrl: '/assets/images/news/activity1.jpg',
+    categoryName: '活动动态',
+    category: 'activity',
+    publishDateStr: '2024-03-15',
+    author: '文化中心',
+    views: 1280
+  },
+  {
+    id: 2,
+    title: '国家级非遗传承人张明山先生来校开展技艺传承讲座',
+    excerpt: '张明山先生从事泥彩人制作 40 余年，他将分享自己的从艺经历和技艺传承心得。',
+    imageUrl: '/assets/images/news/heritage1.jpg',
+    categoryName: '传承保护',
+    category: 'heritage',
+    publishDateStr: '2024-03-10',
+    author: '传承中心',
+    views: 2156
+  },
+  {
+    id: 3,
+    title: '2024 年春季泥彩人作品展览即将开幕',
+    excerpt: '本次展览将展出 50 余件精品泥彩人作品，包括传统人物、神话传说等多个系列。',
+    imageUrl: '/assets/images/news/exhibition1.jpg',
+    categoryName: '展览信息',
+    category: 'exhibition',
+    publishDateStr: '2024-03-08',
+    author: '展览部',
+    views: 985
+  },
+  {
+    id: 4,
+    title: '非遗进校园：泥彩人技艺培训课程正式启动',
+    excerpt: '首期培训班面向全校学生开放，由资深传承人亲自授课，理论与实践相结合。',
+    imageUrl: '/assets/images/news/education1.jpg',
+    categoryName: '教育传承',
+    category: 'education',
+    publishDateStr: '2024-03-05',
+    author: '教育部',
+    views: 1567
+  },
+  {
+    id: 5,
+    title: '创新设计赋能传统文化：泥彩人文创产品研发成果展',
+    excerpt: '年轻设计师们将现代元素融入传统泥彩人技艺，开发出一系列富有创意的文创产品。',
+    imageUrl: '/assets/images/news/innovation1.jpg',
+    categoryName: '创新发展',
+    category: 'innovation',
+    publishDateStr: '2024-03-01',
+    author: '研发中心',
+    views: 1834
+  },
+  {
+    id: 6,
+    title: '泥彩人制作技艺入选省级非物质文化遗产代表性项目名录',
+    excerpt: '这是对我校泥彩人传承保护工作的肯定，也将为后续发展提供更多支持。',
+    imageUrl: '/assets/images/news/heritage2.jpg',
+    categoryName: '传承保护',
+    category: 'heritage',
+    publishDateStr: '2024-02-28',
+    author: '办公室',
+    views: 3201
+  },
+  {
+    id: 7,
+    title: '国际文化交流：泥彩人艺术作品赴法国参展',
+    excerpt: '我校泥彩人作品将在巴黎中国文化中心展出，向世界展示中国传统非遗文化的魅力。',
+    imageUrl: '/assets/images/news/activity2.jpg',
+    categoryName: '活动动态',
+    category: 'activity',
+    publishDateStr: '2024-02-25',
+    author: '国际交流处',
+    views: 2678
+  },
+  {
+    id: 8,
+    title: '青少年泥彩人体验营招募学员啦！',
+    excerpt: '面向中小学生开设的暑期体验营，让孩子们亲手体验泥彩人制作的乐趣。',
+    imageUrl: '/assets/images/news/education2.jpg',
+    categoryName: '教育传承',
+    category: 'education',
+    publishDateStr: '2024-02-20',
+    author: '培训部',
+    views: 1456
+  },
+  {
+    id: 9,
+    title: '数字化技术助力非遗传承：3D 打印与泥彩人的创新融合',
+    excerpt: '探索传统工艺与现代科技的结合点，为泥彩人传承开辟新的可能性。',
+    imageUrl: '/assets/images/news/innovation2.jpg',
+    categoryName: '创新发展',
+    category: 'innovation',
+    publishDateStr: '2024-02-18',
+    author: '技术部',
+    views: 1923
+  },
+  {
+    id: 10,
+    title: '春节特别策划：泥彩人里的年味记忆',
+    excerpt: '通过泥彩人艺术展现传统春节习俗，唤起人们对传统文化的美好回忆。',
+    imageUrl: '/assets/images/news/exhibition2.jpg',
+    categoryName: '展览信息',
+    category: 'exhibition',
+    publishDateStr: '2024-02-10',
+    author: '策划部',
+    views: 2890
+  },
+  {
+    id: 11,
+    title: '校企合作共建非遗传承基地签约仪式举行',
+    excerpt: '多家企业与学校达成合作，共同推动泥彩人技艺的传承与创新发展。',
+    imageUrl: '/assets/images/news/activity3.jpg',
+    categoryName: '活动动态',
+    category: 'activity',
+    publishDateStr: '2024-02-05',
+    author: '校企合作办',
+    views: 1567
+  },
+  {
+    id: 12,
+    title: '老艺人新传人：90 后姑娘的泥彩人坚守之路',
+    excerpt: '年轻的非遗传承人用青春和热爱守护着这门古老技艺，让传统焕发新生。',
+    imageUrl: '/assets/images/news/heritage3.jpg',
+    categoryName: '传承保护',
+    category: 'heritage',
+    publishDateStr: '2024-02-01',
+    author: '宣传部',
+    views: 3456
+  }
+];
+
+// 从 API 加载新闻数据
 const loadNews = async () => {
   loading.value = true;
 
@@ -201,7 +337,7 @@ const loadNews = async () => {
 
     const response = await newsApi.getNewsByPage(params);
 
-    console.log('API响应:', response);
+    console.log('API 响应:', response);
     console.log('新闻列表:', response.content);
     console.log('总数量:', response.totalElements);
 
@@ -210,13 +346,39 @@ const loadNews = async () => {
     totalPages.value = response.totalPages || 0;
 
   } catch (error) {
-    console.error('加载新闻失败:', error);
-    newsList.value = [];
-    totalElements.value = 0;
-    totalPages.value = 0;
+    console.error('加载新闻失败，使用备用数据:', error);
+    // 使用备用数据
+    loadFallbackData();
   } finally {
     loading.value = false;
   }
+};
+
+// 加载备用数据
+const loadFallbackData = () => {
+  let filteredData = [...fallbackNews];
+
+  // 按分类筛选
+  if (selectedCategory.value !== 'all') {
+    filteredData = filteredData.filter(news => news.category === selectedCategory.value);
+  }
+
+  // 按关键词搜索
+  if (searchKeyword.value.trim()) {
+    const keyword = searchKeyword.value.trim().toLowerCase();
+    filteredData = filteredData.filter(news =>
+      news.title.toLowerCase().includes(keyword) ||
+      news.excerpt.toLowerCase().includes(keyword)
+    );
+  }
+
+  // 分页处理
+  const startIndex = (currentPage.value - 1) * pageSize.value;
+  const endIndex = startIndex + pageSize.value;
+
+  newsList.value = filteredData.slice(startIndex, endIndex);
+  totalElements.value = filteredData.length;
+  totalPages.value = Math.ceil(filteredData.length / pageSize.value);
 };
 
 // 格式化日期
