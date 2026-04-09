@@ -7,9 +7,10 @@ import http from '@/utils/http';
 
 // ==================== 商品相关 ====================
 export const productApi = {
-  // 获取商品列表（分页）
-  getProducts: (params) => {
-    return http.get('/products', { params });
+  // 获取商品列表（分页）(后端从1开始分页)
+  getProducts: (params = {}) => {
+    const { page = 1, pageSize = 12, ...rest } = params;
+    return http.get('/products', { params: { page, pageSize, ...rest } });
   },
 
   // 获取商品详情
@@ -25,6 +26,11 @@ export const productApi = {
   // 获取所有商品标签
   getProductTags: () => {
     return http.get('/products/tags');
+  },
+
+  // 获取关联传承人列表
+  getProductInheritors: () => {
+    return http.get('/products/inheritors');
   },
 
   // 获取热销商品
@@ -55,6 +61,16 @@ export const orderApi = {
     return http.get(`/orders/${orderNumber}`);
   },
 
+  // 查询用户的所有订单
+  getUserOrders: (userId) => {
+    return http.get(`/orders/user/${userId}`);
+  },
+
+  // 更新订单状态 (需要认证)
+  updateOrderStatus: (orderNumber, status) => {
+    return http.put(`/orders/${orderNumber}/status`, { status });
+  },
+
   // 支付订单
   payOrder: (orderNumber, paymentMethod) => {
     return http.post(`/orders/${orderNumber}/pay`, { paymentMethod });
@@ -73,7 +89,6 @@ export const updateProduct = (id, data) => http.put(`/admin/products/${id}`, dat
 export const deleteProduct = (id) => http.delete(`/admin/products/${id}`);
 
 export default {
-  shopApi,
   productApi,
   orderApi
 };

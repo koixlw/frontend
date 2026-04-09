@@ -6,7 +6,17 @@
 export { default as shopApi, productApi, orderApi } from './shop';
 export { default as contentApi, inheritorApi, newsApi, galleryApi } from './content';
 export { default as userApi, reserveApi, activityApi } from './user';
-export { default as adminApi, adminUserApi, adminProductApi, adminInheritorApi, adminNewsApi, adminGalleryApi, adminReserveApi, adminActivityApi } from './admin';
+export { 
+  default as adminApi, 
+  adminUserApi, 
+  adminProductApi, 
+  adminInheritorApi, 
+  adminNewsApi, 
+  adminGalleryApi, 
+  adminReserveApi, 
+  adminActivityTypeApi,
+  getStats 
+} from './admin';
 export { default as aiApi, textToImageApi, imageToImageApi } from './ai';
 export { default as authApi } from './auth';
 
@@ -14,4 +24,12 @@ export { default as authApi } from './auth';
 export * from './shop';
 export * from './content';
 export * from './user';
-export { getStats, getUsers, createUser, updateUser, deleteUser } from './admin';
+export { 
+  getUsers, 
+  createUser, 
+  updateUser, 
+  deleteUser,
+  getReservations,
+  updateReservation,
+  deleteReservation
+} from './admin';

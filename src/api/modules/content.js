@@ -14,9 +14,10 @@ export const inheritorApi = {
     return http.get('/inheritors');
   },
 
-  // 分页查询传承人
-  getInheritorsByPage: (params) => {
-    return http.get('/inheritors/page', { params });
+  // 分页查询传承人 (后端从1开始分页)
+  getInheritorsByPage: (params = {}) => {
+    const { page = 1, pageSize = 6, ...rest } = params;
+    return http.get('/inheritors/page', { params: { page, pageSize, ...rest } });
   },
 
   // 根据ID获取传承人基本信息
@@ -117,9 +118,10 @@ export const newsApi = {
     return http.get('/news/all');
   },
 
-  // 分页查询新闻
-  getNewsByPage: (params) => {
-    return http.get('/news', { params });
+  // 分页查询新闻 (后端从0开始分页)
+  getNewsByPage: (params = {}) => {
+    const { page = 0, size = 6, ...rest } = params;
+    return http.get('/news', { params: { page, size, ...rest } });
   },
 
   // 根据ID获取新闻基本信息
@@ -155,9 +157,10 @@ export const newsApi = {
 
 // ==================== 作品展示相关 ====================
 export const galleryApi = {
-  // 获取作品列表（分页）
-  getWorks: (params) => {
-    return http.get('/gallery/works', { params });
+  // 获取作品列表（分页）(后端从1开始分页)
+  getWorks: (params = {}) => {
+    const { page = 1, pageSize = 9, ...rest } = params;
+    return http.get('/gallery/works', { params: { page, pageSize, ...rest } });
   },
 
   // 获取作品详情
@@ -175,9 +178,14 @@ export const galleryApi = {
     return http.get('/gallery/styles');
   },
 
-  // 切换点赞状态
+  // 点赞作品 (基于IP)
   toggleLike: (id) => {
     return http.post(`/gallery/works/${id}/like`);
+  },
+
+  // 取消点赞
+  cancelLike: (id) => {
+    return http.delete(`/gallery/works/${id}/like`);
   },
 
   // 获取点赞状态
@@ -217,13 +225,12 @@ export const createNews = (data) => http.post('/admin/news', data);
 export const updateNews = (id, data) => http.put(`/admin/news/${id}`, data);
 export const deleteNews = (id) => http.delete(`/admin/news/${id}`);
 
-export const getGalleryWorks = (params) => http.get('/admin/gallery', { params });
-export const createGalleryWork = (data) => http.post('/admin/gallery', data);
-export const updateGalleryWork = (id, data) => http.put(`/admin/gallery/${id}`, data);
-export const deleteGalleryWork = (id) => http.delete(`/admin/gallery/${id}`);
+export const getGalleryWorks = (params) => http.get('/admin/gallery-works', { params });
+export const createGalleryWork = (data) => http.post('/admin/gallery-works', data);
+export const updateGalleryWork = (id, data) => http.put(`/admin/gallery-works/${id}`, data);
+export const deleteGalleryWork = (id) => http.delete(`/admin/gallery-works/${id}`);
 
 export default {
-  contentApi,
   inheritorApi,
   newsApi,
   galleryApi

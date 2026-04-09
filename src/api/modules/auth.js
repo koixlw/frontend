@@ -8,12 +8,12 @@ import http from '@/utils/http';
 export const authApi = {
   // 管理员登录
   adminLogin: (credentials) => {
-    return http.post('/auth/admin/login', credentials);
+    return http.post('/admin/login', credentials);
   },
 
   // 管理员登出
   adminLogout: () => {
-    return http.post('/auth/admin/logout');
+    return http.post('/admin/logout');
   },
 
   // 刷新token
