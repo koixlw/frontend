@@ -49,7 +49,7 @@
 							<div class="hero-left">
 								<div class="image-container">
 									<div class="image-frame">
-										<img :src="detail.basicInfo.imageUrl || '/assets/images/image.png'"
+										<img :src="getInheritorDetailImage(detail)"
 											:alt="detail.basicInfo.name" class="inheritor-image" loading="lazy"
 											decoding="async">
 										<div class="image-overlay"></div>
@@ -535,6 +535,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { inheritorApi } from '@/api/modules'
+import { getInheritorImageUrl } from '@/utils/inheritorImages';
 
 // 导入本地图片资源
 import badgeIcon from '@/assets/images/ui/徽章.png'
@@ -610,6 +611,15 @@ onMounted(() => {
 const scrollToTop = () => {
 	window.scrollTo({ top: 0, behavior: 'smooth' })
 }
+
+// 获取传承人图片URL
+const getInheritorDetailImage = (detail) => {
+  if (!detail || !detail.basicInfo) {
+    return '/assets/images/image.png';
+  }
+  return getInheritorImageUrl(detail.basicInfo.id, detail.basicInfo.imageUrl);
+};
+
 </script>
 
 <style scoped>

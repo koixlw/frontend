@@ -1,0 +1,8 @@
+.vision-bg-overlay[data-v-7c506d34] {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.1;
+    mix-blend-mode: overlay;
+}

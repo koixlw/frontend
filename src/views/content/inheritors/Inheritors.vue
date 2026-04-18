@@ -124,9 +124,9 @@
             <div class="card-ink-border"></div>
             <div class="card-header">
               <div class="img-frame">
-                <div class="img-blur-bg" :style="{ backgroundImage: `url(${inheritor.imageUrl || defaultImage})` }">
+                <div class="img-blur-bg" :style="{ backgroundImage: `url(${getInheritorImage(inheritor)})` }">
                 </div>
-                <img :src="inheritor.imageUrl || defaultImage" :alt="inheritor.name" class="inheritor-img">
+                <img :src="getInheritorImage(inheritor)" :alt="inheritor.name" class="inheritor-img">
                 <div class="img-overlay"></div>
               </div>
               <div class="level-badge" :class="inheritor.level">
@@ -232,6 +232,7 @@
 import { ref, computed, onMounted, watch } from 'vue';
 import { inheritorApi } from '@/api/modules';
 import { useToast } from '@/composables/useToast';
+import { getInheritorImageUrl } from '@/utils/inheritorImages';
 
 // 导入图片资源
 import levelIcon from '@/assets/images/ui/等级.png'
@@ -571,6 +572,12 @@ onMounted(() => {
   loadFavoriteList();
   loadInheritors();
 });
+
+// 使用工具函数获取传承人图片
+const getInheritorImage = (inheritor) => {
+  return getInheritorImageUrl(inheritor.id, inheritor.imageUrl);
+};
+
 </script>
 
 <style scoped>
