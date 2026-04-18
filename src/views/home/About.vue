@@ -672,8 +672,8 @@ const resetParallax = () => {
 /* --- Vision Section --- */
 .vision-section {
   position: relative;
-  background: #2c1e1c;
-  color: #fff;
+  background: transparent;
+  color: #2c3e50;
   text-align: center;
   padding: 120px 0;
 }
@@ -681,8 +681,6 @@ const resetParallax = () => {
 .vision-bg-overlay {
   position: absolute;
   inset: 0;
-  background-image: url('@/assets/images/content/shoubu.png');
-  /* 使用手部图作为隐约背景 */
   background-size: cover;
   background-position: center;
   opacity: 0.1;
@@ -699,16 +697,17 @@ const resetParallax = () => {
   font-size: 3rem;
   font-weight: 800;
   margin-bottom: 30px;
-  background: linear-gradient(135deg, #fff 0%, #fdf6ec 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #2c3e50;
+  /* background: linear-gradient(135deg, #fff 0%, #fdf6ec 100%); */
+  /* -webkit-background-clip: text; */
+  /* background-clip: text; */
+  /* -webkit-text-fill-color: transparent; */
 }
 
 .vision-text {
   font-size: 1.2rem;
   line-height: 1.8;
-  color: rgba(255, 255, 255, 0.8);
+  color: #555;
   margin-bottom: 50px;
 }
 
