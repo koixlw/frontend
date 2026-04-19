@@ -106,7 +106,7 @@
             </div>
             <h3 class="card-title">校园薪火传承</h3>
             <p class="card-text">
-              在四川大学锦江学院等高校开展工作坊。让指尖沾满泥土，让年轻的心感受匠人的温度。
+              在四川省成都市成华大道等高校开展工作坊。让指尖沾满泥土，让年轻的心感受匠人的温度。
             </p>
           </div>
 
@@ -136,7 +136,7 @@
         </p>
         <div class="cta-group">
           <router-link to="/contact" class="btn primary-btn pulse-anim">加入我们</router-link>
-  
+
         </div>
       </div>
     </section>

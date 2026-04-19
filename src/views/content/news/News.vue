@@ -191,7 +191,7 @@ const newsCategories = ref([
 const fallbackNews = [
   {
     id: 1,
-    title: '泥彩人非遗文化展示活动在四川大学锦江学院成功举办',
+    title: '泥彩人非遗文化展示活动在四川省成都市成华大道成功举办',
     excerpt: '本次活动展示了泥彩人制作技艺的精湛工艺，吸引了众多师生驻足观赏，现场气氛热烈。',
     imageUrl: '/assets/images/news/activity1.jpg',
     categoryName: '活动动态',

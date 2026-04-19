@@ -15,7 +15,7 @@
           <ul class="contact-list">
             <li class="contact-item">
               <i class="icon">📍</i>
-              <span>地址：四川大学锦江学院</span>
+              <span>地址：四川省成都市成华大道</span>
             </li>
             <li class="contact-item">
               <i class="icon">📞</i>
