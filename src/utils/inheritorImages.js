@@ -2,10 +2,11 @@
 
 // 本地传承人图片数组
 const LOCAL_INHERITOR_IMAGES = [
-  '/assets/images/inheritor/OIP-C.webp',
-  '/assets/images/inheritor/ffb5c908020d453d9ea0359821e72fb8.jpg',
   '/assets/images/inheritor/泥人张.avif',
-  '/assets/images/inheritor/王南仙.webp'
+  '/assets/images/inheritor/乔.png',
+  '/assets/images/inheritor/王南仙.webp',
+  '/assets/images/inheritor/li.webp',
+  '/assets/images/inheritor/wan.jpg'
 ];
 
 // 缓存每个传承人的分配图片，避免同一传承人在不同地方显示不同图片

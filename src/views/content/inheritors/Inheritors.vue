@@ -246,6 +246,12 @@ import nextPageIcon from '@/assets/images/ui/下一页.png'
 import lastPageIcon from '@/assets/images/ui/末页.png'
 import defaultImage from '@/assets/images/content/image1.png'
 import zhangImg from '@/assets/images/content/czhangmingshan.jpg'
+// 导入传承人图片
+import qiaoImg from '@/assets/images/inheritor/乔.png'
+import wanImg from '@/assets/images/inheritor/wan.jpg'
+import wangNanxianImg from '@/assets/images/inheritor/王南仙.webp'
+import liImg from '@/assets/images/inheritor/li.webp'
+import nirenZhangImg from '@/assets/images/inheritor/泥人张.avif'
 
 // 筛选条件
 const selectedLevel = ref('all');
@@ -317,7 +323,7 @@ const fallbackInheritors = [
     name: '李巧云',
     title: '省级非遗传承人',
     description: '专注泥彩人创作30余年，作品风格细腻生动，尤其擅长女性形象塑造，曾赴多个国家进行文化交流和展示。',
-    imageUrl: '/assets/images/inheritor2.jpg',
+    imageUrl: qiaoImg,
     level: 'provincial',
     levelDisplayName: '省级',
     region: 'jiangsu',
@@ -329,7 +335,7 @@ const fallbackInheritors = [
     name: '王建国',
     title: '市级非遗传承人',
     description: '专注创新泥彩人技艺，融合现代元素，开发了多种泥彩人文创产品，为传统工艺的创新发展做出了积极探索。',
-    imageUrl: '/assets/images/inheritor3.jpg',
+    imageUrl: wanImg,
     level: 'municipal',
     levelDisplayName: '市级',
     region: 'shanghai',
@@ -341,7 +347,7 @@ const fallbackInheritors = [
     name: '陈秀英',
     title: '国家级非遗传承人',
     description: '泥彩人制作技艺的代表性传承人之一，技艺精湛，著有多部关于泥彩人制作技艺的专著，培养了众多年轻传承人。',
-    imageUrl: '/assets/images/inheritor4.jpg',
+    imageUrl: wangNanxianImg,
     level: 'national',
     levelDisplayName: '国家级',
     region: 'anhui',
@@ -353,7 +359,7 @@ const fallbackInheritors = [
     name: '刘志强',
     title: '省级非遗传承人',
     description: '擅长历史人物和神话传说题材的泥彩人创作，作品造型生动，色彩鲜艳，多次参加国内外展览并获奖。',
-    imageUrl: '/assets/images/inheritor5.jpg',
+    imageUrl: liImg,
     level: 'provincial',
     levelDisplayName: '省级',
     region: 'zhejiang',
@@ -365,7 +371,7 @@ const fallbackInheritors = [
     name: '周红梅',
     title: '市级非遗传承人',
     description: '青年传承人代表，致力于泥彩人技艺的年轻化和现代化探索，通过新媒体平台推广泥彩人文化，吸引了众多年轻人的关注。',
-    imageUrl: '/assets/images/inheritor6.jpg',
+    imageUrl: nirenZhangImg,
     level: 'municipal',
     levelDisplayName: '市级',
     region: 'beijing',
